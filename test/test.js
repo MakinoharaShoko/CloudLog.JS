@@ -1,7 +1,7 @@
 const cloudlog = require('../cloudlog/index')
 
 const logger = new cloudlog();
-logger.init('localhost:3000','mongo');
+logger.init('http://localhost:3000','mongodb://localhost:27017/');
 logger.setLevel('all');
 logger.trace('123');
 logger.debug('123');

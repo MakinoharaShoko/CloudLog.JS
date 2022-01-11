@@ -33,10 +33,11 @@ class Cloudlog {
             collection: this.collection
         }
         const that = this;
-        if (this.url !== '' && this.mongoUrl !== '') {
-            axios.post(this.url, postData).then(r => {
+        if (this.url !== '') {
+            axios.post(this.url + '/log', postData).then(r => {
+                that.trace('Logged to cloud.',undefined,false)
             }).catch(e => {
-                that.error('Logging to cloud failed!', '', false);
+                that.error('Logging to cloud failed!', undefined, false);
             });
         }
     }
