@@ -11,12 +11,13 @@ const {Option} = Select;
 const {Panel} = Collapse;
 
 function App() {
-    const backendUrl = '';
+    const backendUrl = 'http://localhost:3001';
     const [collections, setCollections] = useState([]);
     // const [mongoUrl, setMongoUrl] = useState('mongodb://localhost:27017/');
     const [currentShow, setCurrentShow] = useState('');
     const [showNumber, setShowNumber] = useState(100);
     const [currentLog, setCurrentLog] = useState([]);
+    const [sourceList, setSourceList] = useState([]);
     const getLog = (collection) => {
         console.log('开始获取');
         let current = collection;
@@ -52,6 +53,10 @@ function App() {
         setInterval(() => {
             getLog(runtime.currentShow)
         }, 1000);
+        if (localStorage.getItem('dataSource')) {
+            let currentList = JSON.parse(localStorage.getItem('dataSource'));
+            setSourceList(currentList);
+        }
     }, [])
 
     const getAllCollection = () => {
@@ -71,8 +76,8 @@ function App() {
         })
     }
 
-    const connect = () => {
-        runtime.mongoUrl = document.getElementById('mongoInput').value;
+    const connect = (value) => {
+        runtime.mongoUrl = value;
         getAllCollection();
     }
 
@@ -80,6 +85,13 @@ function App() {
     collections.map(e => {
         const t = <Option value={e} key={e}>{e}</Option>;
         toSelect.push(t);
+    })
+    const toSourceList = [];
+    let count = 0;
+    sourceList.map(e => {
+        count++;
+        const t = <Option value={e.source} key={count}>{e.name}</Option>;
+        toSourceList.push(t);
     })
     const showLog = [];
     currentLog.map(e => {
@@ -168,19 +180,50 @@ function App() {
         showLog.push(t);
     })
 
+    const AddDataSource = () => {
+        let newSource = document.getElementById('mongoInput').value;
+        let newSourceName = document.getElementById('nameInput').value;
+        let newSourceObj = {name: newSourceName, source: newSource};
+        if (localStorage.getItem('dataSource')) {
+            let pre = localStorage.getItem('dataSource');
+            pre = JSON.parse(pre);
+            pre.push(newSourceObj);
+            pre = JSON.stringify(pre);
+            localStorage.setItem('dataSource', pre);
+        } else {
+            let arr = [newSourceObj];
+            let s = JSON.stringify(arr);
+            localStorage.setItem('dataSource', s);
+        }
+        let currentList = JSON.parse(localStorage.getItem('dataSource'));
+        setSourceList(currentList);
+    }
+
+    const RemoveDataSource = () => {
+        localStorage.removeItem('dataSource');
+        setSourceList([]);
+        setCollections([]);
+        runtime.currentShow = '';
+    }
+
     return (
         <div className="App">
             <div className={styles.head}>
                 <span className={styles.title}>CloudLOG</span>
                 <div className={styles.option}>
                     <div>
-                        <Input id={'mongoInput'} style={{width: 220}} placeholder="数据库链接"/>
-                        <Button onClick={connect} type="primary">连接</Button>
+                        <Input id={'mongoInput'} style={{width: 140}} placeholder="数据库链接"/>
+                        <Input id={'nameInput'} style={{width: 80}} placeholder="别名"/>
+                        <Button onClick={AddDataSource} type="primary">添加数据源</Button>
                     </div>
                     <div style={{padding: '0 0 0 20px'}}>
+                        <Select style={{width: 150}} allowClear onChange={connect}>
+                            {toSourceList}
+                        </Select>
                         <Select style={{width: 150}} allowClear onChange={handleChange}>
                             {toSelect}
                         </Select>
+                        <Button onClick={RemoveDataSource} type="primary">清除数据源</Button>
                     </div>
                 </div>
             </div>
