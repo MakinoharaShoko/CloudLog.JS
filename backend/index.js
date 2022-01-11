@@ -31,7 +31,7 @@ app.get('/api', (req, res) => {
 });
 
 app.post('/log', ((req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const mongoUrl = req.body.mongoUrl;
     const collection = req.body.collection;
     const log = req.body.log;
@@ -43,7 +43,7 @@ app.post('/log', ((req, res) => {
                 throw err;
             }
             if (!err) {
-                console.log("文档插入成功");
+                // console.log("文档插入成功");
                 res.send('OK');
             }
             db.close().then(r => {
@@ -66,6 +66,21 @@ app.post('/getLog', (req, res) => {
             if (err) throw err;
             // console.log(result);
             res.send(result);
+            db.close().then();
+        })
+    })
+});
+
+app.post('/getCollection', (req, res) => {
+    let getParm = req.body;
+    const mongoUrl = getParm.mongoUrl;
+    MongoClient.connect(mongoUrl, (err, db) => {
+        if (err) throw err;
+        const dbo = db.db('CloudLog');
+        dbo.listCollections().toArray((err, result) => {
+            if (err) throw err;
+            res.send(result);
+            db.close().then();
         })
     })
 });
