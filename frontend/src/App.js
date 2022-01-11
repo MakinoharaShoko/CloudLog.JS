@@ -11,7 +11,7 @@ const {Option} = Select;
 const {Panel} = Collapse;
 
 function App() {
-    const backendUrl = 'http://localhost:3001';
+    const backendUrl = '';
     const [collections, setCollections] = useState([]);
     // const [mongoUrl, setMongoUrl] = useState('mongodb://localhost:27017/');
     const [currentShow, setCurrentShow] = useState('');
