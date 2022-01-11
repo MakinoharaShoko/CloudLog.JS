@@ -1,6 +1,6 @@
 {
   "name": "cloudlogjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "log to cloud",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,10 @@
     "log",
     "js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MakinoharaShoko/CloudLog.JS.git"
+  },
   "author": "Kamome",
   "license": "GPL-3.0",
   "dependencies": {

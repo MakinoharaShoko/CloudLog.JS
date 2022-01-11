@@ -22,6 +22,9 @@ class Cloudlog {
     }
 
     upload(info, data, level, now) {
+        if (typeof info !== 'string') {
+            this.error('log的第一个参数不是字符串', undefined, false);
+        }
         let postData = {
             log: {
                 info: info,
