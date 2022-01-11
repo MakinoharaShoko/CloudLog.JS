@@ -1,5 +1,5 @@
 {
-  "name": "cloudlog",
+  "name": "cloudlogjs",
   "version": "1.0.0",
   "description": "log to cloud",
   "main": "index.js",

@@ -1,11 +1,14 @@
 import styles from './App.module.scss';
 import 'antd/dist/antd.css';
-import {Button, Input, Select} from 'antd';
+import '@icon-park/react/styles/index.css';
+import {Button, Collapse, Input, Select} from 'antd';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import runtime from "./runtime";
+import {Alarm, Bug, Caution, CloseOne, Info, Trace} from "@icon-park/react";
 
 const {Option} = Select;
+const {Panel} = Collapse;
 
 function App() {
     const backendUrl = 'http://localhost:3001';
@@ -84,7 +87,7 @@ function App() {
         title = e.level;
         let time = '';
         let logTime = new Date(e.now);
-        time = logTime.toLocaleString();
+        time = logTime.toLocaleString('chinese', {hour12: false});
         let info = '';
         info = e.info;
         let color = 'black';
@@ -108,15 +111,45 @@ function App() {
                 color = '#E16B8C';
                 break;
         }
+        let icon = <div/>;
+        switch (title) {
+            case 'TRACE':
+                icon = <Trace theme="filled" size="24" fill={color}/>;
+                break;
+            case 'DEBUG':
+                icon = <Bug theme="filled" size="24" fill={color}/>;
+                break;
+            case 'INFO':
+                icon = <Info theme="filled" size="24" fill={color}/>;
+                break;
+            case 'WARN':
+                icon = <Caution theme="filled" size="24" fill={color}/>;
+                break;
+            case 'ERROR':
+                icon = <CloseOne theme="filled" size="24" fill={color}/>;
+                break;
+            case 'FATAL':
+                icon = <Alarm theme="filled" size="24" fill={color}/>;
+                break;
+        }
+        let showBlank = false;
+        if (title === 'INFO' || title === 'WARN') {
+            showBlank = true;
+        }
         let showLogData = [];
+        let hasLogData = false;
         if (e.hasOwnProperty('data')) {
-            let dataString = JSON.stringify(e.data, null, 4);
+            let dataString = JSON.stringify(e.data, null, '\t');
+            console.log(dataString);
             let t = <div>{dataString}</div>
             showLogData.push(t);
+            hasLogData = true;
         }
         let t = <div className={styles.logItem}>
             <div className={styles.logTitle}>
-                <span className={styles.logTitleText} style={{backgroundColor: color}}>{title}</span>
+                {icon}
+                <span className={styles.logTitleText} style={{color: color}}>{title}{showBlank &&
+                    <span>{'\u00a0'}</span>}</span>
                 <span className={styles.logTitleDate} style={{color: 'rgba(0,0,0,0.7)'}}>{time}</span>
             </div>
             <div>
@@ -124,34 +157,40 @@ function App() {
                     {info}
                 </span>
             </div>
-            <div>
-                {showLogData}
+            <div>{hasLogData && <div><Collapse defaultActiveKey={[]}>
+                <Panel header="展示数据" key="1">
+                    <pre className={styles.code}>{showLogData}</pre>
+                </Panel>
+            </Collapse></div>
+            }
             </div>
         </div>
         showLog.push(t);
     })
 
-    return (<div className="App">
-        <div className={styles.head}>
-            <span className={styles.title}>CloudLOG</span>
-            <div className={styles.option}>
-                <div>
-                    <Input id={'mongoInput'} style={{width: 220}} placeholder="数据库链接"/>
-                    <Button onClick={connect} type="primary">连接</Button>
-                </div>
-                <div style={{padding: '0 0 0 20px'}}>
-                    <Select style={{width: 150}} allowClear onChange={handleChange}>
-                        {toSelect}
-                    </Select>
+    return (
+        <div className="App">
+            <div className={styles.head}>
+                <span className={styles.title}>CloudLOG</span>
+                <div className={styles.option}>
+                    <div>
+                        <Input id={'mongoInput'} style={{width: 220}} placeholder="数据库链接"/>
+                        <Button onClick={connect} type="primary">连接</Button>
+                    </div>
+                    <div style={{padding: '0 0 0 20px'}}>
+                        <Select style={{width: 150}} allowClear onChange={handleChange}>
+                            {toSelect}
+                        </Select>
+                    </div>
                 </div>
             </div>
+            <main className={styles.main}>
+                <div className={styles.logList}>
+                    {showLog}
+                </div>
+            </main>
         </div>
-        <main className={styles.main}>
-            <div className={styles.logList}>
-                {showLog}
-            </div>
-        </main>
-    </div>);
+    );
 }
 
 export default App;

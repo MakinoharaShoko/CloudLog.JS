@@ -30,14 +30,15 @@
 
 
 .logTitle{
-  font-size: large;
+  font-size: x-large;
+  font-family: Consolas;
 }
 
 .logTitleText{
-  color: white;
+  //color: white;
   display: inline-block;
-  padding: 0 15px 0 15px;
-  border-radius: 30px;
+  padding: 0 0 0 5px;
+  //border-radius: 30px;
 }
 
 .logTitleDate{
@@ -45,10 +46,12 @@
 }
 
 .logItem{
-  border: 1px solid rgba(0,0,0,0.3);
+  border: 1px solid rgba(0,0,0,0.2);
   padding: 10px 10px 10px 10px;
   margin: 10px calc(10px + 10vw) 0 10vw;
   border-radius: 7px;
+  animation: show 1s;
+  box-shadow: 3px 3px 7px rgba(0,0,0,0.15);
 }
 
 .infoText{
@@ -58,4 +61,17 @@
 .option{
   padding: 15px 0 20px 15px;
   display: flex;
+}
+
+@keyframes show {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+.code{
+  color: black;
 }
