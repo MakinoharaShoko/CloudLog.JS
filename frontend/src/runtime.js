@@ -1,6 +1,7 @@
 let runtime = {
     currentShow:'',
-    mongoUrl:''
+    mongoUrl:'',
+    showNumber:100
 }
 
 export default runtime;

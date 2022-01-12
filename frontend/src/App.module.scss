@@ -122,3 +122,43 @@
 .closeIcon:hover{
   box-shadow: 0 0 5px rgba(0,0,0,0.3) inset;
 }
+
+.picker{
+  position: fixed;
+  z-index: 3;
+  left: 2vw;
+  top: 100px;
+}
+
+.pickerIcon{
+  padding: 5px 5px 2px 5px;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.2);
+  background-color: white;
+}
+
+.pickerIcon:hover{
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.pickerMain{
+  margin: 2px 0 0 0;
+  position: absolute;
+  padding: 10px 10px 10px 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.2);
+  background-color: white;
+  width: 25vw;
+  display: none;
+}
+
+.pickerTitle{
+  padding: 2px 0 2px 5px;
+  font-size: x-large;
+  border-left: 3px solid #66327c;
+}
+
+.pickerItemTitle{
+  font-size: larger;
+  margin: 5px 0 3px 0;
+}

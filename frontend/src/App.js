@@ -1,22 +1,29 @@
 import styles from './App.module.scss';
 import 'antd/dist/antd.css';
 import '@icon-park/react/styles/index.css';
-import {Button, Collapse, Descriptions, Input, Select} from 'antd';
+import {Button, Collapse, Descriptions, Input, InputNumber, Select} from 'antd';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import runtime from "./runtime";
-import {Alarm, Bug, Caution, Close, CloseOne, Info, Trace} from "@icon-park/react";
+import {Alarm, Bug, Caution, Close, CloseOne, Filter, Info, Trace} from "@icon-park/react";
 import {Table, Tag, Space} from 'antd';
+import {DatePicker} from 'antd';
+import isLevelShow from "./util/getLevel";
 
+const {RangePicker} = DatePicker;
 const {Option} = Select;
 const {Panel} = Collapse;
 
 function App() {
-    const backendUrl = '';
+    const backendUrl = 'https://cl.msfasr.com';
     const [collections, setCollections] = useState([]);
     // const [mongoUrl, setMongoUrl] = useState('mongodb://localhost:27017/');
     const [currentShow, setCurrentShow] = useState('');
-    const [showNumber, setShowNumber] = useState(100);
+    const start = new Date('1970/1/1');
+    const end = new Date('2100/1/1');
+    const [showTime, setShowTime] = useState({start: start, end: end});
+    const [showPicker, setShowPicker] = useState(false);
+    const [level, setLevel] = useState('ALL');
     const [currentLog, setCurrentLog] = useState([]);
     const [sourceList, setSourceList] = useState([]);
     const [showManage, setShowManage] = useState(false);
@@ -26,7 +33,7 @@ function App() {
         // console.log(current);
         if (current !== '') {
             const data = {
-                mongoUrl: runtime.mongoUrl, collection: current, num: showNumber
+                mongoUrl: runtime.mongoUrl, collection: current, num: runtime.showNumber
             }
             axios.post(backendUrl + '/getLog', data).then(r => {
                 // console.log(r.data);
@@ -206,7 +213,18 @@ function App() {
             }
             </div>
         </div>
-        showLog.push(t);
+        let start = showTime.start;
+        let end = showTime.end;
+        let show = true;
+        if (logTime.getTime() > end.getTime() || logTime.getTime() < start.getTime()) {
+            show = false;
+        }
+        if (!isLevelShow(e.level, level)) {
+            show = false;
+        }
+        if (show) {
+            showLog.push(t);
+        }
     })
 
     const AddDataSource = () => {
@@ -236,10 +254,69 @@ function App() {
         runtime.currentShow = '';
     }
 
+    const changePickerV = () => {
+        if (showPicker) {
+            setShowPicker(false);
+            document.getElementById('pickerMain').style.display = 'none';
+        } else {
+            setShowPicker(true);
+            document.getElementById('pickerMain').style.display = 'block';
+        }
+    }
+
+    const pickLevel = (value) => {
+        setLevel(value);
+    }
+
+    const changeShowNumber = () => {
+        let value = document.getElementById('pickNumber').value;
+        value = parseInt(value);
+        runtime.showNumber = value;
+    }
+
+    const getDateRange = (date, dateString) => {
+        const start = date[0]['_d'];
+        const end = date[1]['_d'];
+        const timeRange = {start: start, end: end};
+        setShowTime(timeRange);
+    }
+
     return (
         <div className="App">
-            {showManage&&<div className={styles.sourceManage}>
-                <Close className={styles.closeIcon} theme="filled" size="32" fill="#333" onClick={()=>{setShowManage(false)}}/>
+            <div className={styles.picker}>
+                <div className={styles.pickerIcon} onClick={changePickerV}>
+                    {!showPicker && <Filter theme="filled" size="28" fill="#333"/>}
+                    {showPicker && <Close theme="filled" size="28" fill="#333"/>}
+                </div>
+                <div>
+
+                </div>
+                <div id={'pickerMain'} className={styles.pickerMain}>
+                    <div style={{margin: '0 0 10px 0'}}><span className={styles.pickerTitle}>筛选</span></div>
+                    <div>
+                        <div className={styles.pickerItemTitle}>选择日期</div>
+                        <RangePicker showTime onChange={getDateRange}/>
+                        <div className={styles.pickerItemTitle}>选择级别</div>
+                        <Select defaultValue="ALL" onChange={pickLevel} style={{width: '100px'}}>
+                            <Option value="ALL">ALL</Option>
+                            <Option value="TRACE">TRACE</Option>
+                            <Option value="DEBUG">DEBUG</Option>
+                            <Option value="INFO">INFO</Option>
+                            <Option value="WARN">WARN</Option>
+                            <Option value="ERROR">ERROR</Option>
+                            <Option value="FATAL">FATAL</Option>
+                            <Option value="NONE">NONE</Option>
+                        </Select>
+                        <div className={styles.pickerItemTitle}>选择获取条数（筛选前条数）</div>
+                        <InputNumber min={1} max={100000} defaultValue={100} id={'pickNumber'}/>
+                        <Button onClick={changeShowNumber}>设置</Button>
+                    </div>
+                </div>
+            </div>
+            {showManage && <div className={styles.sourceManage}>
+                <Close className={styles.closeIcon} theme="filled" size="32" fill="#333" onClick={() => {
+                    setShowManage(false)
+                }}/>
                 <div className={styles.sMtitle}>数据源管理</div>
                 <div>
                     <div>
@@ -253,10 +330,14 @@ function App() {
                         <Button onClick={RemoveDataSource} type="primary">清除所有数据源</Button>
                     </div>
                     <div>
-                        <div style={{borderBottom:'1px solid rgba(0,0,0,0.2)',padding:'0 0 3px 0',margin:'10px 0 7px 0'}}>
+                        <div style={{
+                            borderBottom: '1px solid rgba(0,0,0,0.2)',
+                            padding: '0 0 3px 0',
+                            margin: '10px 0 7px 0'
+                        }}>
                             <span className={styles.sMelementTitle}>数据源列表</span>
                         </div>
-                        <div style={{overflow:'auto',height:'calc(50vh - 170px)'}}>
+                        <div style={{overflow: 'auto', height: 'calc(50vh - 170px)'}}>
                             {toManageSource}
                         </div>
                     </div>
@@ -266,7 +347,9 @@ function App() {
                 <span className={styles.title}>CloudLOG</span>
                 <div className={styles.option}>
                     <div>
-                        <Button onClick={()=>{setShowManage(true)}} type="primary">管理数据源</Button>
+                        <Button onClick={() => {
+                            setShowManage(true)
+                        }} type="primary">管理数据源</Button>
                     </div>
                     <div style={{padding: '0 0 0 20px'}}>
                         <Select style={{width: 150}} allowClear onChange={connect}>
