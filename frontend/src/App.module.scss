@@ -117,6 +117,7 @@
 .closeIcon{
   padding: 5px 5px 5px 5px;
   border-radius: 50px;
+  cursor: pointer;
 }
 
 .closeIcon:hover{
@@ -135,6 +136,7 @@
   border-radius: 5px;
   border: 1px solid rgba(0,0,0,0.2);
   background-color: white;
+  cursor: pointer;
 }
 
 .pickerIcon:hover{
