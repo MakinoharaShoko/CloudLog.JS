@@ -181,7 +181,7 @@ function App() {
         let hasLogData = false;
         if (e.hasOwnProperty('data')) {
             let dataString = JSON.stringify(e.data, null, '\t');
-            console.log(dataString);
+            // console.log(dataString);
             let t = <div>{dataString}</div>
             showLogData.push(t);
             hasLogData = true;
