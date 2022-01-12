@@ -10,7 +10,9 @@ class Cloudlog {
 
     init(url, mongoUrl) {
         this.url = url;
-        this.mongoUrl = mongoUrl;
+        if (mongoUrl) {
+            this.mongoUrl = mongoUrl;
+        }
     }
 
     setCollection(c) {
