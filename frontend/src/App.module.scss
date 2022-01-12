@@ -1,14 +1,14 @@
-.head{
+.head {
   width: 100vw;
   position: fixed;
   top: 0;
   background-color: white;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   height: 64px;
   display: flex;
 }
 
-.title{
+.title {
   font-size: xx-large;
   line-height: 64px;
   font-family: Georgia;
@@ -16,12 +16,12 @@
   padding: 0 0 0 30px;
 }
 
-.main{
+.main {
   padding: 74px 10px 10px 10px;
 
 }
 
-.logList{
+.logList {
   display: flex;
   flex-flow: column-reverse;
   height: calc(100vh - 84px);
@@ -29,49 +29,96 @@
 }
 
 
-.logTitle{
+.logTitle {
   font-size: x-large;
   font-family: Consolas;
 }
 
-.logTitleText{
+.logTitleText {
   //color: white;
   display: inline-block;
   padding: 0 0 0 5px;
   //border-radius: 30px;
 }
 
-.logTitleDate{
+.logTitleDate {
   padding: 5px 10px 5px 10px;
 }
 
-.logItem{
-  border: 1px solid rgba(0,0,0,0.2);
+.logItem {
+  border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 10px 10px 10px 10px;
   margin: 10px calc(10px + 10vw) 0 10vw;
   border-radius: 7px;
   animation: show 1s;
-  box-shadow: 3px 3px 7px rgba(0,0,0,0.15);
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.15);
 }
 
-.infoText{
+.infoText {
   font-size: large;
 }
 
-.option{
+.option {
   padding: 15px 0 20px 15px;
   display: flex;
 }
 
 @keyframes show {
-  from{
+  from {
     opacity: 0;
   }
-  to{
+  to {
     opacity: 1;
   }
 }
 
-.code{
+.code {
   color: black;
+}
+
+.sourceManage {
+  position: fixed;
+  top: 0;
+  left: 15vw;
+  width: 70vw;
+  height: 50vh;
+  z-index: 2;
+  background-color: white;
+  padding: 10px 20px 10px 20px;
+  box-sizing: border-box;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  border-radius: 0 0 5px 5px;
+  animation: showManage 0.5s;
+}
+
+.sMtitle {
+  font-size: x-large;
+  color: #66327C;
+  border-left: 3px solid #66327c;
+  padding: 0 0 0 10px;
+  margin: 5px 0 5px 0;
+}
+
+.sMelementTitle {
+  font-size: large;
+  padding: 0 10px 0 0 ;
+}
+
+@keyframes showManage {
+  from {
+    opacity: 0;
+    transform: translateY(-10vh);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.closeIcon{
+  padding: 5px 5px 5px 5px;
+  border-radius: 50px;
+}
+
+.closeIcon:hover{
+  box-shadow: 0 0 5px rgba(0,0,0,0.3) inset;
 }

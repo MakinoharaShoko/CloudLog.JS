@@ -1,11 +1,12 @@
 import styles from './App.module.scss';
 import 'antd/dist/antd.css';
 import '@icon-park/react/styles/index.css';
-import {Button, Collapse, Input, Select} from 'antd';
+import {Button, Collapse, Descriptions, Input, Select} from 'antd';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import runtime from "./runtime";
-import {Alarm, Bug, Caution, CloseOne, Info, Trace} from "@icon-park/react";
+import {Alarm, Bug, Caution, Close, CloseOne, Info, Trace} from "@icon-park/react";
+import {Table, Tag, Space} from 'antd';
 
 const {Option} = Select;
 const {Panel} = Collapse;
@@ -18,16 +19,17 @@ function App() {
     const [showNumber, setShowNumber] = useState(100);
     const [currentLog, setCurrentLog] = useState([]);
     const [sourceList, setSourceList] = useState([]);
+    const [showManage, setShowManage] = useState(false);
     const getLog = (collection) => {
-        console.log('开始获取');
+        // console.log('开始获取');
         let current = collection;
-        console.log(current);
+        // console.log(current);
         if (current !== '') {
             const data = {
                 mongoUrl: runtime.mongoUrl, collection: current, num: showNumber
             }
             axios.post(backendUrl + '/getLog', data).then(r => {
-                console.log(r.data);
+                // console.log(r.data);
                 setCurrentLog(r.data);
             }).catch(e => {
             })
@@ -37,9 +39,9 @@ function App() {
     }
 
     const handleChange = (value) => {
-        console.log(`selected ${value}`);
+        // console.log(`selected ${value}`);
         if (value === undefined) {
-            console.log('reset');
+            // console.log('reset');
             setCurrentShow('');
             runtime.currentShow = '';
         } else {
@@ -64,15 +66,15 @@ function App() {
             mongoUrl: runtime.mongoUrl
         }
         axios.post(backendUrl + '/getCollection', data).then(r => {
-            console.log(r.data);
+            // console.log(r.data);
             let collectionList = [];
             for (const e of r.data) {
                 collectionList.push(e.name);
             }
-            console.log(collectionList)
+            // console.log(collectionList)
             setCollections(collectionList);
         }).catch(err => {
-            console.log(err);
+            // console.log(err);
         })
     }
 
@@ -93,6 +95,33 @@ function App() {
         const t = <Option value={e.source} key={count}>{e.name}</Option>;
         toSourceList.push(t);
     })
+
+    const deleteAdetaSource = (key) => {
+        let arr = JSON.parse(localStorage.getItem('dataSource'));
+        arr.map((e, i) => {
+            if (e.key === key) {
+                arr.splice(i, 1);
+            }
+        });
+        localStorage.setItem('dataSource', JSON.stringify(arr));
+        setSourceList(JSON.parse(localStorage.getItem('dataSource')));
+    }
+
+    const toManageSource = [];
+    sourceList.map(e => {
+        count++;
+        const t = <div key={count}>
+            <Descriptions bordered>
+                <Descriptions.Item>{e.name}</Descriptions.Item>
+                <Descriptions.Item>{e.source}</Descriptions.Item>
+                <Descriptions.Item><Button onClick={() => {
+                    deleteAdetaSource(e.key)
+                }}>删除</Button></Descriptions.Item>
+            </Descriptions>
+        </div>
+        toManageSource.push(t);
+    })
+
     const showLog = [];
     currentLog.map(e => {
         let title = '';
@@ -183,7 +212,8 @@ function App() {
     const AddDataSource = () => {
         let newSource = document.getElementById('mongoInput').value;
         let newSourceName = document.getElementById('nameInput').value;
-        let newSourceObj = {name: newSourceName, source: newSource};
+        let r = Math.random();
+        let newSourceObj = {name: newSourceName, source: newSource, key: r};
         if (localStorage.getItem('dataSource')) {
             let pre = localStorage.getItem('dataSource');
             pre = JSON.parse(pre);
@@ -208,13 +238,35 @@ function App() {
 
     return (
         <div className="App">
+            {showManage&&<div className={styles.sourceManage}>
+                <Close className={styles.closeIcon} theme="filled" size="32" fill="#333" onClick={()=>{setShowManage(false)}}/>
+                <div className={styles.sMtitle}>数据源管理</div>
+                <div>
+                    <div>
+                        <span className={styles.sMelementTitle}>添加数据源</span>
+                        <Input id={'mongoInput'} style={{width: 200}} placeholder="数据库链接"/>
+                        <span style={{padding: '0 0 0 10px'}}> </span>
+                        <Input id={'nameInput'} style={{width: 150}} placeholder="别名"/>
+                        <span style={{padding: '0 0 0 10px'}}> </span>
+                        <Button onClick={AddDataSource} type="primary">添加数据源</Button>
+                        <span style={{padding: '0 0 0 10px'}}> </span>
+                        <Button onClick={RemoveDataSource} type="primary">清除所有数据源</Button>
+                    </div>
+                    <div>
+                        <div style={{borderBottom:'1px solid rgba(0,0,0,0.2)',padding:'0 0 3px 0',margin:'10px 0 7px 0'}}>
+                            <span className={styles.sMelementTitle}>数据源列表</span>
+                        </div>
+                        <div style={{overflow:'auto',height:'calc(50vh - 170px)'}}>
+                            {toManageSource}
+                        </div>
+                    </div>
+                </div>
+            </div>}
             <div className={styles.head}>
                 <span className={styles.title}>CloudLOG</span>
                 <div className={styles.option}>
                     <div>
-                        <Input id={'mongoInput'} style={{width: 140}} placeholder="数据库链接"/>
-                        <Input id={'nameInput'} style={{width: 80}} placeholder="别名"/>
-                        <Button onClick={AddDataSource} type="primary">添加数据源</Button>
+                        <Button onClick={()=>{setShowManage(true)}} type="primary">管理数据源</Button>
                     </div>
                     <div style={{padding: '0 0 0 20px'}}>
                         <Select style={{width: 150}} allowClear onChange={connect}>
@@ -223,7 +275,6 @@ function App() {
                         <Select style={{width: 150}} allowClear onChange={handleChange}>
                             {toSelect}
                         </Select>
-                        <Button onClick={RemoveDataSource} type="primary">清除数据源</Button>
                     </div>
                 </div>
             </div>
