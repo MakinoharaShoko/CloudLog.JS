@@ -15,7 +15,7 @@ const {Option} = Select;
 const {Panel} = Collapse;
 
 function App() {
-    const backendUrl = 'https://cl.msfasr.com';
+    const backendUrl = '';
     const [collections, setCollections] = useState([]);
     // const [mongoUrl, setMongoUrl] = useState('mongodb://localhost:27017/');
     const [currentShow, setCurrentShow] = useState('');
