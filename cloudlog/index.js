@@ -4,7 +4,7 @@ class Cloudlog {
     constructor() {
         this.url = '';
         this.level = 'all';
-        this.mongoUrl = '';
+        this.mongoUrl = 'mongodb://localhost:27017/';
         this.collection = 'main';
     }
 
