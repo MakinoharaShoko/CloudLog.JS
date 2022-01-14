@@ -74,8 +74,9 @@ logger.debug('这条信息不会被上传到数据库',{name:'info',message:'Hel
 logger.debug('这条信息不会被上传到数据库',undefined,false);//不附加数据的情况
 ```
 
-
 ### 将日志上传到数据库
+
+**注意，如果你不做这一步操作，那么 CloudLog 会以本地模式运行，这样你的log数据不会上传到数据库。**
 
 你可以使用一个免费的 MongoDB 云数据库，注册地址：https://www.mongodb.com/atlas/database
 
