@@ -61,6 +61,9 @@ logger.fatal('这是一条致命错误信息');
 logger.debug('这是一条debug信息',{name:'info',message:'Hello, CloudLog!'});
 ```
 
+![image](https://user-images.githubusercontent.com/30483415/149435324-ab75d2c7-fd51-441a-87ba-357738f51597.png)
+
+
 **如果有某一条数据你不想上传到数据库，你可以传入第三个参数：**
 
 ```js
@@ -132,7 +135,7 @@ const cljs = require('cloudlogjs');
 
 const logger = new cljs();//初始化
 logger.init('https://log.msfasr.com','mongodb+srv://username:password@......')//设置后端及数据库链接
-logger.level('DEBUG');//只会显示DEBUG级别以上的日志
+logger.setLevel('DEBUG');//只会显示DEBUG级别以上的日志
 
 logger.trace('这是一个TRACE级别日志');
 logger.debug('这是一条debug信息');
