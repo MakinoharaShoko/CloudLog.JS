@@ -134,7 +134,7 @@ const cljs = require('cloudlogjs');
 //或： import cljs from 'cloudlogjs';
 
 const logger = new cljs();//初始化
-logger.init('https://log.msfasr.com','mongodb+srv://username:password@......')//设置后端及数据库链接
+logger.init('https://cl.msfasr.com','mongodb+srv://username:password@......')//设置后端及数据库链接
 logger.setLevel('DEBUG');//只会显示DEBUG级别以上的日志
 
 logger.trace('这是一个TRACE级别日志');
