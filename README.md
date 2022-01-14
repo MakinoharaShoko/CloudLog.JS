@@ -57,7 +57,9 @@ logger.fatal('这是一条致命错误信息');
 
 这就是你要将日志上传到数据库的链接。
 
-接下来，你还需要一个 CloudLOG 后端来提供日志上传服务，你可以选择使用这个我提供的公用网站：https://cl.msfasr.com
+接下来，你还需要一个 CloudLOG 后端来提供日志上传服务，你可以选择使用这个我提供的公用服务（不安全且性能有限，仅供测试或娱乐使用）：
+
+https://cl.msfasr.com
 
 或者，你可以非常简单地搭建一个 CloudLOG后端：
 
@@ -68,6 +70,8 @@ npm run serve
 ```
 
 然后，初始化 logger，告诉它你需要使用的 CloudLOG 后端 url 与数据库链接：
+
+第一个参数是使用的 CloudLOG 后端 url，第二个参数是数据库链接。
 
 ```js
 logger.init('https://cl.msfasr.com', 'mongodb+srv://username:password@......');
@@ -92,4 +96,22 @@ logger.setLevel('DEBUG');//DEBUG 级别以下的日志不会输出
 ```js
 logger.setCollection('MyCollection');
 ```
+
+## 使用 CloudLOG 前端
+
+当你完成后端服务的启动后，你就可以访问 CloudLOG 网站了：
+
+比如，如果你在本地启动了 CloudLOG 服务，你可以访问：
+
+http://localhost:3001  来访问 CloudLOG 前端。
+
+如果你使用了我提供的公用 CloudLOG 服务，请访问：
+
+https://cl.msfasr.com/
+
+然后，在数据源管理中提供数据库访问链接，并为其设置一个备注后，你就可以访问到数据库里的 log 了。
+
+
+
+你可以使用筛选功能来筛选你想要看到的信息:
 
