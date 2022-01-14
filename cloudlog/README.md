@@ -61,6 +61,9 @@ logger.fatal('这是一条致命错误信息');
 logger.debug('这是一条debug信息',{name:'info',message:'Hello, CloudLog!'});
 ```
 
+![image](https://user-images.githubusercontent.com/30483415/149435324-ab75d2c7-fd51-441a-87ba-357738f51597.png)
+
+
 **如果有某一条数据你不想上传到数据库，你可以传入第三个参数：**
 
 ```js
@@ -131,8 +134,8 @@ const cljs = require('cloudlogjs');
 //或： import cljs from 'cloudlogjs';
 
 const logger = new cljs();//初始化
-logger.init('https://log.msfasr.com','mongodb+srv://username:password@......')//设置后端及数据库链接
-logger.level('DEBUG');//只会显示DEBUG级别以上的日志
+logger.init('https://cl.msfasr.com','mongodb+srv://username:password@......')//设置后端及数据库链接
+logger.setLevel('DEBUG');//只会显示DEBUG级别以上的日志
 
 logger.trace('这是一个TRACE级别日志');
 logger.debug('这是一条debug信息');
@@ -156,7 +159,7 @@ https://cl.msfasr.com/
 
 然后，在数据源管理中提供数据库访问链接，并为其设置一个备注后，你就可以访问到数据库里的 log 了。
 
-![image](https://user-images.githubusercontent.com/30483415/149433636-8447bdac-3b73-4d68-83bb-9db8ef4f94b1.png)
+![image](https://user-images.githubusercontent.com/30483415/149435500-c7ed4687-c627-4522-aa42-4cd663d9972e.png)
 
 你可以使用筛选功能来筛选你想要看到的信息:
 
