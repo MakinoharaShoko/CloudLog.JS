@@ -159,7 +159,7 @@ https://cl.msfasr.com/
 
 然后，在数据源管理中提供数据库访问链接，并为其设置一个备注后，你就可以访问到数据库里的 log 了。
 
-![image](https://user-images.githubusercontent.com/30483415/149433636-8447bdac-3b73-4d68-83bb-9db8ef4f94b1.png)
+![image](https://user-images.githubusercontent.com/30483415/149435500-c7ed4687-c627-4522-aa42-4cd663d9972e.png)
 
 你可以使用筛选功能来筛选你想要看到的信息:
 
