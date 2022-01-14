@@ -3,9 +3,17 @@
 
 ### 将不同级别的日志以不同颜色格式化输出到控制台
 
+![T 7YP~1%FSV1M8B}UAMLMID](https://user-images.githubusercontent.com/30483415/149433496-e0a9fb0f-c951-4dc6-8539-1c7d0f588a8b.png)
+
 ### 将日志记录上传到 MongoDB 数据库
 
+![image](https://user-images.githubusercontent.com/30483415/149433545-e9727bde-d630-4074-b6bd-08c30deebb5f.png)
+
 ### 将 MongoDB 数据库内的日志记录可视化展示（并提供筛选功能）
+
+![3)2OGN4D1O{SVRJJ_{N$PA8](https://user-images.githubusercontent.com/30483415/149433558-11be1599-1d79-48ec-9662-3c5ff837fee3.png)
+
+![@K~ZZ~6C5}7NNQ~%7H@$PHS](https://user-images.githubusercontent.com/30483415/149433569-4b3c2077-1672-4b91-837a-8905bb0138e2.png)
 
 ## 使用方法
 
@@ -44,6 +52,25 @@ logger.warn('这是一条警告');
 logger.error('这是一条错误信息');
 logger.fatal('这是一条致命错误信息');
 ```
+
+![image](https://user-images.githubusercontent.com/30483415/149433607-d4926ae3-58a6-440a-aa62-7f6844787a68.png)
+
+**如果你想要在输出日志的时候附加数据，你可以传入第二个参数：**
+
+```js
+logger.debug('这是一条debug信息',{name:'info',message:'Hello, CloudLog!'});
+```
+
+**如果有某一条数据你不想上传到数据库，你可以传入第三个参数：**
+
+```js
+logger.debug('这条信息不会被上传到数据库',{name:'info',message:'Hello, CloudLog!'},false);
+```
+
+```js
+logger.debug('这条信息不会被上传到数据库',undefined,false);//不附加数据的情况
+```
+
 
 ### 将日志上传到数据库
 
@@ -129,7 +156,8 @@ https://cl.msfasr.com/
 
 然后，在数据源管理中提供数据库访问链接，并为其设置一个备注后，你就可以访问到数据库里的 log 了。
 
-
+![image](https://user-images.githubusercontent.com/30483415/149433636-8447bdac-3b73-4d68-83bb-9db8ef4f94b1.png)
 
 你可以使用筛选功能来筛选你想要看到的信息:
 
+![image](https://user-images.githubusercontent.com/30483415/149433646-b2f16817-9c7f-456d-b928-5ca9c41f71d4.png)
