@@ -55,6 +55,22 @@ logger.fatal('这是一条致命错误信息');
 
 ![image](https://user-images.githubusercontent.com/30483415/149433607-d4926ae3-58a6-440a-aa62-7f6844787a68.png)
 
+**如果你想要在输出日志的时候附加数据，你可以传入第二个参数：**
+
+```js
+logger.debug('这是一条debug信息',{name:'info',message:'Hello, CloudLog!'});
+```
+
+**如果有某一条数据你不想上传到数据库，你可以传入第三个参数：**
+
+```js
+logger.debug('这条信息不会被上传到数据库',{name:'info',message:'Hello, CloudLog!'},false);
+```
+
+```js
+logger.debug('这条信息不会被上传到数据库',undefined,false);//不附加数据的情况
+```
+
 
 ### 将日志上传到数据库
 
