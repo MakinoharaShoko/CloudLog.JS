@@ -128,6 +128,25 @@ logger.setLevel('DEBUG');//DEBUG 级别以下的日志不会输出
 logger.setCollection('MyCollection');
 ```
 
+### 上传日志开关
+
+你可以通过 setUpload 来开关是否要上传日志。
+
+```js
+logger.setUpload(false);//关闭上传开关
+//以下数据不会被上传：
+logger.trace('网络些许波动');
+logger.debug('当前正在处理数据：',{id:'114514',name:'Tadokoro Lee',location:'Shimokitazawa'});
+logger.info('有新用户注册');
+logger.setUpload(true);//打开上传开关
+//以下数据会被上传
+logger.warn('服务器负载接近阈值');
+logger.error('错误的数据录入');
+logger.fatal('服务器负载过大',);
+```
+
+
+
 ### 一个完整的示例
 
 ```js

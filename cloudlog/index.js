@@ -6,6 +6,7 @@ class Cloudlog {
         this.level = 'all';
         this.mongoUrl = 'mongodb://localhost:27017/';
         this.collection = 'main';
+        this.isUpload = true;
     }
 
     init(url, mongoUrl) {
@@ -13,6 +14,10 @@ class Cloudlog {
         if (mongoUrl) {
             this.mongoUrl = mongoUrl;
         }
+    }
+
+    setUpload(s) {
+        this.isUpload = s;
     }
 
     setCollection(c) {
@@ -38,7 +43,7 @@ class Cloudlog {
             collection: this.collection
         }
         const that = this;
-        if (this.url !== '') {
+        if (this.url !== '' && this.isUpload) {
             axios.post(this.url + '/log', postData).then(r => {
                 that.trace('Logged to cloud.', undefined, false)
             }).catch(e => {

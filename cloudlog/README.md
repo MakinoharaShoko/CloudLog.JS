@@ -74,8 +74,9 @@ logger.debug('这条信息不会被上传到数据库',{name:'info',message:'Hel
 logger.debug('这条信息不会被上传到数据库',undefined,false);//不附加数据的情况
 ```
 
-
 ### 将日志上传到数据库
+
+**注意，如果你不做这一步操作，那么 CloudLog 会以本地模式运行，这样你的log数据不会上传到数据库。**
 
 你可以使用一个免费的 MongoDB 云数据库，注册地址：https://www.mongodb.com/atlas/database
 
@@ -126,6 +127,25 @@ logger.setLevel('DEBUG');//DEBUG 级别以下的日志不会输出
 ```js
 logger.setCollection('MyCollection');
 ```
+
+### 上传日志开关
+
+你可以通过 setUpload 来开关是否要上传日志。
+
+```js
+logger.setUpload(false);//关闭上传开关
+//以下数据不会被上传：
+logger.trace('网络些许波动');
+logger.debug('当前正在处理数据：',{id:'114514',name:'Tadokoro Lee',location:'Shimokitazawa'});
+logger.info('有新用户注册');
+logger.setUpload(true);//打开上传开关
+//以下数据会被上传
+logger.warn('服务器负载接近阈值');
+logger.error('错误的数据录入');
+logger.fatal('服务器负载过大',);
+```
+
+
 
 ### 一个完整的示例
 
