@@ -4,8 +4,10 @@
   top: 0;
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  height: 64px;
+  min-height: 64px;
   display: flex;
+  flex-wrap: wrap;
+  z-index: 1;
 }
 
 .title {
@@ -81,7 +83,7 @@
   top: 0;
   left: 15vw;
   width: 70vw;
-  height: 50vh;
+  min-height: 50vh;
   z-index: 2;
   background-color: white;
   padding: 10px 20px 10px 20px;
@@ -94,9 +96,10 @@
 .sMtitle {
   font-size: x-large;
   color: #66327C;
-  border-left: 3px solid #66327c;
-  padding: 0 0 0 10px;
+  //border-left: 3px solid #66327c;
+  //padding: 0 0 0 10px;
   margin: 5px 0 5px 0;
+  font-weight: bold;
 }
 
 .sMelementTitle {
@@ -128,7 +131,7 @@
   position: fixed;
   z-index: 3;
   left: 2vw;
-  top: 100px;
+  top: 170px;
 }
 
 .pickerIcon{
@@ -150,17 +153,19 @@
   border-radius: 5px;
   border: 1px solid rgba(0,0,0,0.2);
   background-color: white;
-  width: 25vw;
+  width: 450px;
   display: none;
 }
 
 .pickerTitle{
-  padding: 2px 0 2px 5px;
+  padding: 2px 0 2px 0;
   font-size: x-large;
-  border-left: 3px solid #66327c;
+  //border-left: 3px solid #66327c;
+  font-weight: bold;
 }
 
 .pickerItemTitle{
   font-size: larger;
   margin: 5px 0 3px 0;
+  color: rgba(0,0,0,0.7);
 }

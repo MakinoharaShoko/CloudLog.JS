@@ -20,7 +20,7 @@ class Cloudlog {
     }
 
     setLevel(l) {
-        this.level = l;
+        this.level = l.toUpperCase();
     }
 
     upload(info, data, level, now) {
