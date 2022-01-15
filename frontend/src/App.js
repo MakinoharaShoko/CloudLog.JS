@@ -127,6 +127,7 @@ function App() {
     })
 
     const showLog = [];
+    let count2 = 0;
     currentLog.map(e => {
         let title = '';
         title = e.level;
@@ -186,11 +187,13 @@ function App() {
         if (e.hasOwnProperty('data')) {
             let dataString = JSON.stringify(e.data, null, '\t');
             // console.log(dataString);
+            dataString = dataString.replaceAll(/\\n/g, '\n');//去转义
             let t = <div>{dataString}</div>
             showLogData.push(t);
             hasLogData = true;
         }
-        let t = <div className={styles.logItem}>
+        count2++;
+        let t = <div className={styles.logItem} key={title+showLogData+logTime.getTime()}>
             <div className={styles.logTitle}>
                 {icon}
                 <span className={styles.logTitleText} style={{color: color}}>{title}{showBlank &&
@@ -203,7 +206,7 @@ function App() {
                 </span>
             </div>
             <div>{hasLogData && <div><Collapse defaultActiveKey={[]}>
-                <Panel header="展示数据" key="1">
+                <Panel header="展示数据" key={showLogData+logTime.getTime()}>
                     <pre className={styles.code}>{showLogData}</pre>
                 </Panel>
             </Collapse></div>
