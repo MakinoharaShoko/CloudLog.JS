@@ -117,14 +117,11 @@ function App() {
     const toManageSource = [];
     sourceList.map(e => {
         count++;
-        const t = <div key={count}>
-            <Descriptions bordered>
-                <Descriptions.Item>{e.name}</Descriptions.Item>
-                <Descriptions.Item>{e.source}</Descriptions.Item>
-                <Descriptions.Item><Button onClick={() => {
-                    deleteAdetaSource(e.key)
-                }}>删除</Button></Descriptions.Item>
-            </Descriptions>
+        const t = <div className={styles.sourceItem} key={count}>
+            <span className={styles.sourceItemTitle}>{e.name}</span>
+            <CloseOne className={styles.deleteItemIcon} onClick={() => {
+                deleteAdetaSource(e.key)
+            }} theme="filled" size="18" fill="#333"/>
         </div>
         toManageSource.push(t);
     })
@@ -314,7 +311,7 @@ function App() {
                 </div>
             </div>
             {showManage && <div className={styles.sourceManage}>
-                <Close className={styles.closeIcon} theme="filled" size="32" fill="#333" onClick={() => {
+                <Close className={styles.closeIcon} theme="filled" size="24" fill="#333" onClick={() => {
                     setShowManage(false)
                 }}/>
                 <div className={styles.sMtitle}>数据源管理</div>
@@ -337,7 +334,7 @@ function App() {
                         }}>
                             <span className={styles.sMelementTitle}>数据源列表</span>
                         </div>
-                        <div style={{overflow: 'auto', height: 'calc(50vh - 170px)'}}>
+                        <div className={styles.sourceList}>
                             {toManageSource}
                         </div>
                     </div>

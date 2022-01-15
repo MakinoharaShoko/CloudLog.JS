@@ -13,7 +13,7 @@
 .title {
   font-size: xx-large;
   line-height: 64px;
-  font-family: Georgia;
+  font-family: Georgia, serif;
   color: #66327C;
   padding: 0 0 0 30px;
 }
@@ -33,7 +33,7 @@
 
 .logTitle {
   font-size: x-large;
-  font-family: Consolas;
+  font-family: Consolas, serif;
 }
 
 .logTitleText {
@@ -95,16 +95,16 @@
 
 .sMtitle {
   font-size: x-large;
-  color: #66327C;
+  //color: #66327C;
   //border-left: 3px solid #66327c;
   //padding: 0 0 0 10px;
-  margin: 5px 0 5px 0;
+  margin: 5px 0 20px 0;
   font-weight: bold;
 }
 
 .sMelementTitle {
   font-size: large;
-  padding: 0 10px 0 0 ;
+  padding: 0 10px 0 0;
 }
 
 @keyframes showManage {
@@ -117,55 +117,90 @@
   }
 }
 
-.closeIcon{
+.closeIcon {
   padding: 5px 5px 5px 5px;
   border-radius: 50px;
   cursor: pointer;
+  position: relative;
+  left: -5px;
 }
 
-.closeIcon:hover{
-  box-shadow: 0 0 5px rgba(0,0,0,0.3) inset;
+.closeIcon:hover {
+  background-color: rgba(0,0,0,0.15);
 }
 
-.picker{
+.picker {
   position: fixed;
   z-index: 3;
   left: 2vw;
   top: 170px;
 }
 
-.pickerIcon{
+.pickerIcon {
   padding: 5px 5px 2px 5px;
   border-radius: 5px;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: white;
   cursor: pointer;
 }
 
-.pickerIcon:hover{
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+.pickerIcon:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.pickerMain{
+.pickerMain {
   margin: 2px 0 0 0;
   position: absolute;
   padding: 10px 10px 10px 10px;
   border-radius: 5px;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: white;
   width: 450px;
   display: none;
 }
 
-.pickerTitle{
+.pickerTitle {
   padding: 2px 0 2px 0;
   font-size: x-large;
   //border-left: 3px solid #66327c;
   font-weight: bold;
 }
 
-.pickerItemTitle{
+.pickerItemTitle {
   font-size: larger;
   margin: 5px 0 3px 0;
-  color: rgba(0,0,0,0.7);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.sourceItem {
+  padding: 3px 12px 3px 12px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin: 0 5px 0 0;
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.05);
+}
+
+.sourceList {
+  overflow: auto;
+  height: calc(50vh - 170px);
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  align-items: flex-start;
+}
+
+.sourceItemTitle{
+  padding: 0 5px 0 5px;
+  font-size: larger;
+}
+
+.deleteItemIcon{
+  opacity: 0.5;
+  position: relative;
+  top: 2px;
+}
+
+.deleteItemIcon:hover{
+  opacity: 0.8;
 }
