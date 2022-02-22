@@ -88,11 +88,7 @@ logger.debug('这条信息不会被上传到数据库',undefined,false);//不附
 
 这就是你要将日志上传到数据库的链接。
 
-接下来，你还需要一个 CloudLOG 后端来提供日志上传服务，你可以选择使用这个我提供的公用服务（不安全且性能有限，仅供测试或娱乐使用）：
-
-https://cl.msfasr.com
-
-或者，你可以非常简单地搭建一个 CloudLOG后端：
+接下来，你还需要一个 CloudLOG 后端来提供日志上传服务，你可以非常简单地搭建一个 CloudLOG后端：
 
 ```shell
 cd backend
