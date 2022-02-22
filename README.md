@@ -169,10 +169,6 @@ logger.fatal('这是一条致命错误信息');
 
 http://localhost:3001  来访问 CloudLOG 前端。
 
-如果你使用了我提供的公用 CloudLOG 服务，请访问：
-
-https://cl.msfasr.com/
-
 然后，在数据源管理中提供数据库访问链接，并为其设置一个备注后，你就可以访问到数据库里的 log 了。
 
 ![image](https://user-images.githubusercontent.com/30483415/149435500-c7ed4687-c627-4522-aa42-4cd663d9972e.png)
