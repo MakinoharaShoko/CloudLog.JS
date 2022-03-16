@@ -1,6 +1,6 @@
 {
   "name": "cloudlogjs",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "log to cloud",
   "main": "index.js",
   "scripts": {
