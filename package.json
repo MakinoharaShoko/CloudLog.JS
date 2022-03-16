@@ -1,0 +1,22 @@
+{
+  "name": "cloudlogjs",
+  "version": "1.0.10",
+  "description": "log to cloud",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "log",
+    "js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MakinoharaShoko/CloudLog.JS.git"
+  },
+  "author": "Kamome",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}
